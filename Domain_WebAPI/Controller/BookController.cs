@@ -4,6 +4,7 @@ using Domain_WebAPI.Model.DTO;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
+using System.Runtime.InteropServices;
 
 namespace Domain_WebAPI.Controller
 {
@@ -12,6 +13,7 @@ namespace Domain_WebAPI.Controller
     public class BookController : ControllerBase
     {
         private readonly AppDbContext _dbContext;
+        
         public BookController(AppDbContext dbContext)
         {
             _dbContext = dbContext;
@@ -20,26 +22,32 @@ namespace Domain_WebAPI.Controller
         [HttpGet("get-all-books")]
         public IActionResult GetAll()
         {
-
-            //var allBooksDomain = _dbContext.Books.ToList();
-            //Get Data From Database -Domain Model
-            var allBooksDomain = _dbContext.Books;
-            //Map domain model vs DTO
-            var allBooksDTO = allBooksDomain.Select(Books => new BookDTO()
+            Debug.WriteLine("Dang chay GetAll");
+            try
             {
-                Id = Books.Id,
-                Title = Books.Title,
-                Description = Books.Description,
-                IsRead = Books.IsRead,
-                DateRead = Books.DateRead,
-                Rate = Books.Rate,
-                Genre = Books.Genre,
-                CoverUrl = Books.CoverUrl,
-                PublisherName = Books.Publisher.Name,
-                AuthorNames = Books.Book_Authors.Select(n => n.Author.FullName).ToList()
-            }).ToList();
-            //return DTOs
-            return Ok(allBooksDTO);
+                //var allBooksDomain = _dbContext.Books.ToList();
+                //Get Data From Database -Domain Model
+                var allBooksDomain = _dbContext.Books;
+                //Map domain model vs DTO
+                var allBooksDTO = allBooksDomain.Select(Books => new BookDTO()
+                {
+                    Id = Books.Id,
+                    Title = Books.Title,
+                    Description = Books.Description,
+                    IsRead = Books.IsRead,
+                    DateRead = Books.DateRead,
+                    Rate = Books.Rate,
+                    Genre = Books.Genre,
+                    CoverUrl = Books.CoverUrl,
+                    PublisherName = Books.Publisher.Name,
+                    AuthorNames = Books.Book_Authors.Select(n => n.Author.FullName).ToList()
+                }).ToList();
+                //return DTOs
+                return Ok(allBooksDTO);
+            } catch(Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         [HttpGet]
@@ -70,7 +78,7 @@ namespace Domain_WebAPI.Controller
 
         }
 
-        [HttpPost("add-book")]
+        [HttpPost]
         public IActionResult AddBook([FromBody] AddBookRequestDTO addBookRequestDTO)
         {
             //map DTO to Domain Model

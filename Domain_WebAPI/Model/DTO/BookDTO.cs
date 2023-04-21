@@ -1,5 +1,6 @@
 ﻿namespace Domain_WebAPI.Model.DTO
 {
+    //
     public class BookDTO
     {
         public int Id { get; set; }

@@ -2,6 +2,7 @@
 
 namespace Domain_WebAPI.Model.Domain
 {
+    //Link database
     public class Book
     {
         [Key]

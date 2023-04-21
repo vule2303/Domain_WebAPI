@@ -14,4 +14,4 @@
         public int PublisherID { get; set; }
         public List<int> AuthorIds { get;set; }
     }
-}
+} 
