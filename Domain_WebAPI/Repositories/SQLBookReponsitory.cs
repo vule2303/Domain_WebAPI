@@ -104,7 +104,6 @@ namespace Domain_WebAPI.Repositories
 
         public AddBookRequestDTO? UpdateBookById(int id, AddBookRequestDTO bookDTO)
         {
-            Debug.WriteLine("Dang chay updatebookbbyid");
             var bookDomain = _dbContext.Books.FirstOrDefault(n => n.Id == id);
             if(bookDomain != null)
             {
@@ -120,13 +119,14 @@ namespace Domain_WebAPI.Repositories
                 _dbContext.SaveChanges();
 
             }
-            //Update id author
-            var authorDomain = _dbContext.Books_Authors.Where(a => a.BookId == id).ToList();
-            if (authorDomain != null)
-            {
-                _dbContext.Books_Authors.RemoveRange(authorDomain);
-                _dbContext.SaveChanges();
-            }
+            //Update id in book_author
+            //var authorDomain = _dbContext.Books_Authors.Where(a => a.BookId == id).ToList();
+            //if (authorDomain != null)
+            //{
+            //    _dbContext.Books_Authors.RemoveRange(authorDomain);
+            //    _dbContext.SaveChanges();
+            //}
+
             foreach (var authorid in bookDTO.AuthorIds)
             {
                 var _book_author = new Book_Author()

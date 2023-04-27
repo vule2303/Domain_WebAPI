@@ -7,6 +7,8 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 // Add services to the container.
 builder.Services.AddScoped<IBookReponsitory, SQLBookReponsitory>();
+builder.Services.AddScoped<IAuthorReponsitory, SQLAuthorReponsitory>();
+builder.Services.AddScoped<IPublisherReponsitory, SQLPublisherReponsitory>();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();

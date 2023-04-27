@@ -13,6 +13,6 @@
         public string? CoverUrl { get; set; }
         public DateTime DateAdded { get; set; }
         public string PublisherName { get; set; }
-        public List<string> AuthorNames { get; set; }
+        public List<string>? AuthorNames { get; set; }
     }
 }
