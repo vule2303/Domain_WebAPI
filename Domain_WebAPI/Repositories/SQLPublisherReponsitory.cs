@@ -1,6 +1,7 @@
 ﻿using Domain_WebAPI.Data;
 using Domain_WebAPI.Model.Domain;
 using Domain_WebAPI.Model.DTO;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Domain_WebAPI.Repositories
 {
@@ -15,85 +16,74 @@ namespace Domain_WebAPI.Repositories
 
         public AddPublisherRequestDTO AddPublisher(AddPublisherRequestDTO addPublisherRequestDTO)
         {
-            //map doamin to DTO
-            var publisherDomain = new Publisher
+            var publisherDomainModel = new Publisher
             {
                 Name = addPublisherRequestDTO.Name,
             };
-            // Use domain model to add Publisher
-            _appDbContext.Publishers.Add(publisherDomain);
+            //Use Domain Model to create Book
+            _appDbContext.Publishers.Add(publisherDomainModel);
             _appDbContext.SaveChanges();
-
-            foreach (var id in addPublisherRequestDTO.BookIds)
-            {
-                var books = new Book()
-                {
-                    PublisherID = publisherDomain.Id
-                };
-
-                _appDbContext.Books.Add(books);
-                _appDbContext.SaveChanges ();
-            }
             return addPublisherRequestDTO;
+               
         }
 
         public Publisher? DeletePublisherById(int id)
         {
-            var delelePublisher = _appDbContext.Publishers.FirstOrDefault(x => x.Id == id);
-
-            if (delelePublisher != null) 
+            var publisherDomain = _appDbContext.Publishers.FirstOrDefault(x => x.Id == id);
+            if(publisherDomain != null)
             {
-                _appDbContext.Publishers.Remove(delelePublisher);
-                _appDbContext.SaveChanges();
+                _appDbContext.Publishers.Remove(publisherDomain);
+                _appDbContext.SaveChanges ();
             }
-            return delelePublisher;
+            return null;
         }
 
         public List<PublisherDTO> GetAllPublisher()
         {
-            var allPublisher = _appDbContext.Publishers.Select(publishers => new PublisherDTO()
+            //Get Data Form Database -Domain Model
+            var allPublisherDomain = _appDbContext.Publishers.ToList();
+
+            //Map domain model to DTOs
+            var allPublisherDTO = new List<PublisherDTO>();
+            foreach (var publisherDomain in allPublisherDomain)
             {
-                Id = publishers.Id,
-                Name = publishers.Name,
-                NameBooks = publishers.Books.Select(book => book.Title).ToList()
-            }).ToList();
-            return allPublisher;
+                allPublisherDTO.Add(new PublisherDTO()
+                {
+                    Id = publisherDomain.Id,
+                    Name = publisherDomain.Name
+                });
+            }
+            return allPublisherDTO;
         }
 
-        public PublisherDTO GetPublisherById(int id)
+        public PublisherNoIdDTO GetPublisherById(int id)
         {
-            //get id from publisher domain
-            var Publisher = _appDbContext.Publishers.Where(n => n.Id == id);
-            //map domain to DTO
-            var idPublisherDTO = Publisher.Select(publisherDomain => new PublisherDTO()
+            //get book Domain model from Db
+            var publisherWithIdDomain = _appDbContext.Publishers.FirstOrDefault(n => n.Id == id);
+            if (publisherWithIdDomain != null)
             {
-                Id = publisherDomain.Id,
-                Name = publisherDomain.Name,
-                NameBooks = publisherDomain.Books.Select(n => n.Title).ToList(),
-            }).FirstOrDefault();
-            return idPublisherDTO;
+                var publisherNoIdDTO = new PublisherNoIdDTO
+                {
+                    Name = publisherWithIdDomain.Name,
+                };
+                return publisherNoIdDTO;
+            }
+            return null;
+            
         }
 
-        public AddPublisherRequestDTO UpdatePublisherById(int id, AddPublisherRequestDTO updatePublisherRequestDTO)
+        public PublisherNoIdDTO UpdatePublisherById(int id, PublisherNoIdDTO updatePublisherRequestDTO)
         {
-            //get id from publisher domain
             var publisherDomain = _appDbContext.Publishers.FirstOrDefault(n => n.Id == id);
             if (publisherDomain != null)
             {
                 publisherDomain.Name = updatePublisherRequestDTO.Name;
                 _appDbContext.SaveChanges();
             }
+            return null;
 
-            foreach (var Idbook in updatePublisherRequestDTO.BookIds)
-            {
-                var book = new Book()
-                {
-                    PublisherID = id
-                };
-                _appDbContext.Books.Add(book);
-                _appDbContext.SaveChanges();
-            }
-            return updatePublisherRequestDTO;
+                
+            
         }
     }
 }

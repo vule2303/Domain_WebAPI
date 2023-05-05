@@ -28,8 +28,7 @@ namespace Domain_WebAPI.Controller
         }
 
         //GET PUBLISHER BY ID
-        [HttpGet]
-        [Route("get-publisher-by-id/{id}")]
+        [HttpGet ("get-publisher-by-id")]
         public IActionResult GetById(int id)
         {
             var PublisherID = _publisherReponsitory.GetPublisherById(id);
@@ -46,7 +45,7 @@ namespace Domain_WebAPI.Controller
 
         //UPDATE PUBLISHER
         [HttpPut("update-publisher-by-id/{id}")]
-        public IActionResult UpdatePublisherById(int id, [FromBody] AddPublisherRequestDTO updatePublisher)
+        public IActionResult UpdatePublisherById(int id, [FromBody] PublisherNoIdDTO updatePublisher)
         {
             var updatePublishe = _publisherReponsitory.UpdatePublisherById(id, updatePublisher);
             return Ok(updatePublisher);

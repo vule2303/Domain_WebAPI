@@ -2,7 +2,6 @@
 {
     public class AddAuthorRequestDTO
     {
-        public string Name { get; set; }
-        public List<int>? BookIds { get; set; }
+        public string FullName { get; set; }
     }
 }

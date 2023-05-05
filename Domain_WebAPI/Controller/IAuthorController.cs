@@ -49,7 +49,7 @@ namespace Domain_WebAPI.Controller
         //UPDATE AUTHOR BY ID
 
         [HttpPut("update-author-by-id/{id}")]
-        public IActionResult UpdateAuthor(int id, [FromBody] AddAuthorRequestDTO updateAuthor)
+        public IActionResult UpdateAuthor(int id, [FromBody] authorNoIdDTO updateAuthor)
         {
             var _updateAuthor = _authorReponsitory.UpdateAuthorById(id, updateAuthor);
             return Ok(_updateAuthor);

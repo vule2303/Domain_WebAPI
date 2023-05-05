@@ -6,9 +6,9 @@ namespace Domain_WebAPI.Repositories
     public interface IAuthorReponsitory
     {
         List<AuthorDTO> GetAllAuthor();
-        AuthorDTO GetAuthorById (int id);
+        authorNoIdDTO GetAuthorById (int id);
         AddAuthorRequestDTO AddAuthor(AddAuthorRequestDTO addAuthorRequestDTO);
-        AddAuthorRequestDTO? UpdateAuthorById(int id, AddAuthorRequestDTO authorDTO);
+        authorNoIdDTO UpdateAuthorById(int id, authorNoIdDTO authorDTO);
         Author? DeleteById(int id);
     }
 }

@@ -120,12 +120,12 @@ namespace Domain_WebAPI.Repositories
 
             }
             //Update id in book_author
-            //var authorDomain = _dbContext.Books_Authors.Where(a => a.BookId == id).ToList();
-            //if (authorDomain != null)
-            //{
-            //    _dbContext.Books_Authors.RemoveRange(authorDomain);
-            //    _dbContext.SaveChanges();
-            //}
+            var authorDomain = _dbContext.Books_Authors.Where(a => a.BookId == id).ToList();
+            if (authorDomain != null)
+            {
+                _dbContext.Books_Authors.RemoveRange(authorDomain);
+                _dbContext.SaveChanges();
+            }
 
             foreach (var authorid in bookDTO.AuthorIds)
             {

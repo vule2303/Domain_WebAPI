@@ -6,10 +6,10 @@ namespace Domain_WebAPI.Repositories
     public interface IPublisherReponsitory
     {
         List<PublisherDTO> GetAllPublisher();
-        PublisherDTO GetPublisherById(int id);
+        PublisherNoIdDTO GetPublisherById(int id);
 
         AddPublisherRequestDTO AddPublisher(AddPublisherRequestDTO addPublisherRequestDTO);
-        AddPublisherRequestDTO UpdatePublisherById(int id, AddPublisherRequestDTO updatePublisherRequestDTO);
+        PublisherNoIdDTO UpdatePublisherById(int id, PublisherNoIdDTO updatePublisherRequestDTO);
 
         Publisher? DeletePublisherById(int id);
 
