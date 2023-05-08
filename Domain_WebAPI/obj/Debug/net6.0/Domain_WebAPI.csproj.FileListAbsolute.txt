@@ -107,12 +107,7 @@ C:\Users\Administrator\Documents\GitHub\Domain_WebAPI\Domain_WebAPI\bin\Debug\ne
 C:\Users\Administrator\Documents\GitHub\Domain_WebAPI\Domain_WebAPI\bin\Debug\net6.0\runtimes\win-arm64\native\Microsoft.Data.SqlClient.SNI.dll
 C:\Users\Administrator\Documents\GitHub\Domain_WebAPI\Domain_WebAPI\bin\Debug\net6.0\runtimes\win-x64\native\Microsoft.Data.SqlClient.SNI.dll
 C:\Users\Administrator\Documents\GitHub\Domain_WebAPI\Domain_WebAPI\bin\Debug\net6.0\runtimes\win-x86\native\Microsoft.Data.SqlClient.SNI.dll
-C:\Users\Administrator\Documents\GitHub\Domain_WebAPI\Domain_WebAPI\bin\Debug\net6.0\runtimes\win\lib\netcoreapp3.0\Microsoft.Win32.SystemEvents.dll
-C:\Users\Administrator\Documents\GitHub\Domain_WebAPI\Domain_WebAPI\bin\Debug\net6.0\runtimes\unix\lib\netcoreapp3.0\System.Drawing.Common.dll
-C:\Users\Administrator\Documents\GitHub\Domain_WebAPI\Domain_WebAPI\bin\Debug\net6.0\runtimes\win\lib\netcoreapp3.0\System.Drawing.Common.dll
 C:\Users\Administrator\Documents\GitHub\Domain_WebAPI\Domain_WebAPI\bin\Debug\net6.0\runtimes\win\lib\netstandard2.0\System.Runtime.Caching.dll
-C:\Users\Administrator\Documents\GitHub\Domain_WebAPI\Domain_WebAPI\bin\Debug\net6.0\runtimes\win\lib\netstandard2.0\System.Security.Cryptography.ProtectedData.dll
-C:\Users\Administrator\Documents\GitHub\Domain_WebAPI\Domain_WebAPI\bin\Debug\net6.0\runtimes\win\lib\netcoreapp3.0\System.Windows.Extensions.dll
 C:\Users\Administrator\Documents\GitHub\Domain_WebAPI\Domain_WebAPI\obj\Debug\net6.0\Domain_WebAPI.csproj.AssemblyReference.cache
 C:\Users\Administrator\Documents\GitHub\Domain_WebAPI\Domain_WebAPI\obj\Debug\net6.0\Domain_WebAPI.GeneratedMSBuildEditorConfig.editorconfig
 C:\Users\Administrator\Documents\GitHub\Domain_WebAPI\Domain_WebAPI\obj\Debug\net6.0\Domain_WebAPI.AssemblyInfoInputs.cache
@@ -134,3 +129,9 @@ C:\Users\Administrator\Documents\GitHub\Domain_WebAPI\Domain_WebAPI\obj\Debug\ne
 C:\Users\Administrator\Documents\GitHub\Domain_WebAPI\Domain_WebAPI\obj\Debug\net6.0\Domain_WebAPI.pdb
 C:\Users\Administrator\Documents\GitHub\Domain_WebAPI\Domain_WebAPI\obj\Debug\net6.0\Domain_WebAPI.genruntimeconfig.cache
 C:\Users\Administrator\Documents\GitHub\Domain_WebAPI\Domain_WebAPI\obj\Debug\net6.0\ref\Domain_WebAPI.dll
+C:\Users\Administrator\Documents\GitHub\Domain_WebAPI\Domain_WebAPI\bin\Debug\net6.0\Catel.Core.dll
+C:\Users\Administrator\Documents\GitHub\Domain_WebAPI\Domain_WebAPI\bin\Debug\net6.0\runtimes\win\lib\net6.0\Microsoft.Win32.SystemEvents.dll
+C:\Users\Administrator\Documents\GitHub\Domain_WebAPI\Domain_WebAPI\bin\Debug\net6.0\runtimes\unix\lib\net6.0\System.Drawing.Common.dll
+C:\Users\Administrator\Documents\GitHub\Domain_WebAPI\Domain_WebAPI\bin\Debug\net6.0\runtimes\win\lib\net6.0\System.Drawing.Common.dll
+C:\Users\Administrator\Documents\GitHub\Domain_WebAPI\Domain_WebAPI\bin\Debug\net6.0\runtimes\win\lib\net6.0\System.Security.Cryptography.ProtectedData.dll
+C:\Users\Administrator\Documents\GitHub\Domain_WebAPI\Domain_WebAPI\bin\Debug\net6.0\runtimes\win\lib\net6.0\System.Windows.Extensions.dll

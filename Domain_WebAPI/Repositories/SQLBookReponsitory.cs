@@ -3,6 +3,7 @@ using Domain_WebAPI.Model.Domain;
 using Domain_WebAPI.Model.DTO;
 using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;
+using System.Runtime.CompilerServices;
 using static System.Reflection.Metadata.BlobBuilder;
 
 namespace Domain_WebAPI.Repositories
@@ -62,7 +63,7 @@ namespace Domain_WebAPI.Repositories
             return bookDelete;
         }
 
-        public List<BookDTO> GetAllBooks()
+        public List<BookDTO> GetAllBooks( string? filterOn = null,  string? filterQuery = null, string? sortBy = null, bool isAscending = true, int pageNumber  = 1 , int pageSize = 100)
         {
             var allBooks = _dbContext.Books.Select(Books => new BookDTO()
             {
@@ -77,8 +78,30 @@ namespace Domain_WebAPI.Repositories
                 PublisherName = Books.Publisher.Name,
                 AuthorNames = Books.Book_Authors.Select(n => n.Author.FullName).ToList()
 
-            }).ToList();
-            return allBooks;
+            }).AsQueryable();
+            //filtering
+            if (string.IsNullOrWhiteSpace(filterOn) == false && string.IsNullOrWhiteSpace(filterQuery) == false)
+            {
+                if (filterOn.Equals("title", StringComparison.OrdinalIgnoreCase))
+                {
+                    allBooks = allBooks.Where(x => x.Title == filterQuery);
+                }
+            }
+
+            //sorting
+            if(string.IsNullOrWhiteSpace(sortBy) == false)
+            {
+                if(sortBy.Equals("title", StringComparison.OrdinalIgnoreCase))
+                {
+                    allBooks = isAscending ? allBooks.OrderBy(x => x.Title):allBooks.OrderByDescending(x => x.Title);
+                }
+            }
+
+            //pagination
+
+            var skipResults = (pageNumber - 1) * pageSize;
+            
+            return allBooks.Skip(skipResults).Take(pageSize).ToList();
         }
 
         public BookDTO GetBookById(int id)
