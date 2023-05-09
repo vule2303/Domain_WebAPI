@@ -21,9 +21,9 @@ namespace Domain_WebAPI.Controller
 
         //GET ALL PUBLISHER
         [HttpGet("get-all-publisher")]
-        public IActionResult GetAll()
+        public IActionResult GetAll([FromQuery] string? filterOn,[FromQuery] string? filterQuery, [FromQuery] string? sortBy, [FromQuery] bool isAcending, int pageNumber = 1, int pageSize = 1000)
         {
-            var allPublishers = _publisherReponsitory.GetAllPublisher();
+            var allPublishers = _publisherReponsitory.GetAllPublisher(filterOn, filterQuery, sortBy, isAcending, pageNumber, pageSize);
             return Ok(allPublishers);
         }
 

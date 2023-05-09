@@ -38,22 +38,47 @@ namespace Domain_WebAPI.Repositories
             return null;
         }
 
-        public List<PublisherDTO> GetAllPublisher()
+        public List<PublisherDTO> GetAllPublisher(string? filterOn = null, string? filterQuery = null, string? sortBy = null, bool isAcending = true, int pageNumber = 1, int pagesize = 1000)
         {
             //Get Data Form Database -Domain Model
-            var allPublisherDomain = _appDbContext.Publishers.ToList();
+            var allPublisherDomain = _appDbContext.Publishers.Select(Publisher => new PublisherDTO()
+            {
+                Id = Publisher.Id,
+                Name = Publisher.Name,
+            }).AsQueryable();
 
             //Map domain model to DTOs
-            var allPublisherDTO = new List<PublisherDTO>();
-            foreach (var publisherDomain in allPublisherDomain)
-            {
-                allPublisherDTO.Add(new PublisherDTO()
+            //var allPublisherDTO = new List<PublisherDTO>();
+            //foreach (var publisherDomain in allPublisherDomain)
+            //{
+            //    allPublisherDTO.Add(new PublisherDTO()
+            //    {
+            //        Id = publisherDomain.Id,
+            //        Name = publisherDomain.Name
+            //    });
+            //}
+
+            //filtering
+            if(string.IsNullOrWhiteSpace(filterOn) == false && string.IsNullOrWhiteSpace(filterQuery) == false) {
+
+                if (filterOn.Equals("Name", StringComparison.OrdinalIgnoreCase))
                 {
-                    Id = publisherDomain.Id,
-                    Name = publisherDomain.Name
-                });
+                    allPublisherDomain = allPublisherDomain.Where(x => x.Name.Contains(filterQuery));
+                }
             }
-            return allPublisherDTO;
+            //Sorting
+            if (string.IsNullOrWhiteSpace(sortBy) == false)
+            {
+                if(sortBy.Equals("Name", StringComparison.OrdinalIgnoreCase))
+                {
+                    allPublisherDomain = isAcending?allPublisherDomain.OrderBy(x => x.Name):allPublisherDomain.OrderByDescending(x => x.Name);
+                }
+            }
+
+            //pagination
+            var skipResult = (pageNumber - 1) * pagesize;
+
+            return allPublisherDomain.Skip(skipResult).Take(pagesize).ToList();
         }
 
         public PublisherNoIdDTO GetPublisherById(int id)

@@ -22,9 +22,9 @@ namespace Domain_WebAPI.Controller
         //GET ALL AUTHOR
         [HttpGet ("get-all-author")]
 
-        public IActionResult GetAll()
+        public IActionResult GetAll([FromQuery] string? filterOn, [FromQuery] string? filterQuery, [FromQuery] string? sortBy, [FromQuery] bool isAcending, [FromQuery] int numberPage = 1, int pageSize = 1000)
         {
-            var allAuthors = _authorReponsitory.GetAllAuthor();
+            var allAuthors = _authorReponsitory.GetAllAuthor(filterOn, filterQuery, sortBy, isAcending, numberPage, pageSize);
             return Ok(allAuthors);
         }
 

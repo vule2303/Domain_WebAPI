@@ -25,7 +25,7 @@ namespace Domain_WebAPI.Controller
 
         //GET ALL METHOD
         [HttpGet("get-all-books")]
-        public IActionResult GetAll(string? filterOn, string? filterQuery,  string sortBy,  bool isAcending, int pageNumber = 1, int pageSize = 100)
+        public IActionResult GetAll([FromQuery] string? filterOn,[FromQuery] string? filterQuery, [FromQuery] string sortBy, [FromQuery] bool isAcending, [FromQuery] int pageNumber = 1, [FromQuery] int pageSize = 100)
         {
             var allBooks = _bookReponsitory.GetAllBooks(filterOn, filterQuery, sortBy, isAcending, pageNumber ,  pageSize);
             return Ok(allBooks);

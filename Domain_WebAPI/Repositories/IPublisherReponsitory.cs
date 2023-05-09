@@ -5,7 +5,7 @@ namespace Domain_WebAPI.Repositories
 {
     public interface IPublisherReponsitory
     {
-        List<PublisherDTO> GetAllPublisher();
+        List<PublisherDTO> GetAllPublisher(string? filterOn = null, string? filterQuery = null, string? sortBy = null, bool isAcending = true, int pageNumber = 1, int pagesize = 1000);
         PublisherNoIdDTO GetPublisherById(int id);
 
         AddPublisherRequestDTO AddPublisher(AddPublisherRequestDTO addPublisherRequestDTO);

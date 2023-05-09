@@ -40,21 +40,48 @@ namespace Domain_WebAPI.Repositories
             return null;
         }
 
-        public List<AuthorDTO> GetAllAuthor()
+        public List<AuthorDTO> GetAllAuthor(string? filterOn = null, string? filterQuery = null, string? sortBy = null, bool isAcending = true, int pageNumber = 1, int pageSize = 1000)
         {
+
             //Get Data From Database -Domain Model
-            var allAuthorsDomain = _dbContext.Authors.ToList();
-            //Map Domain models to DTOS
-            var allAuthorDTO = new List<AuthorDTO>();
-            foreach (var authorDomain in allAuthorsDomain)
+            var allAuthorsDomain = _dbContext.Authors.Select(Author => new AuthorDTO()
             {
-                allAuthorDTO.Add(new AuthorDTO()
+                Id = Author.Id,
+                FullName = Author.FullName
+            }).AsQueryable();
+
+            //Map Domain models to DTOS
+            //var allAuthorDTO = new List<AuthorDTO>();
+            //foreach (var authorDomain in allAuthorsDomain)
+            //{
+            //    allAuthorDTO.Add(new AuthorDTO()
+            //    {
+            //        Id = authorDomain.Id,
+            //        FullName = authorDomain.FullName
+            //    });
+            //}
+            //allAuthorsDomain.AsQueryable();
+
+
+            //filtering
+            if(string.IsNullOrWhiteSpace(filterOn) == false && string.IsNullOrWhiteSpace(filterQuery) == false)
+            {
+                if(filterOn.Equals("FullName", StringComparison.OrdinalIgnoreCase))
                 {
-                    Id = authorDomain.Id,
-                    FullName = authorDomain.FullName
-                }) ;
+                    allAuthorsDomain = allAuthorsDomain.Where(x => x.FullName.Contains(filterQuery));
+                }
             }
-            return allAuthorDTO;
+            //sorting
+            if(string.IsNullOrWhiteSpace(sortBy) == false)
+            {
+                if (sortBy.Equals("FullName", StringComparison.OrdinalIgnoreCase))
+                {
+                    allAuthorsDomain = isAcending?allAuthorsDomain.OrderBy(x => x.FullName):allAuthorsDomain.OrderByDescending(x => x.FullName);
+                }
+            }
+            //paganation
+            var skipResults = (pageNumber - 1) * pageSize;
+            return allAuthorsDomain.Skip(skipResults).Take(pageSize).ToList();
         }
 
         public authorNoIdDTO GetAuthorById(int id)
